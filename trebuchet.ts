@@ -11,7 +11,7 @@ type NumbersMap = {
     [key: string]: number
 }
 
-let numbers_map: NumbersMap = {
+let numbersMap: NumbersMap = {
     'one': 1,
     'two': 2,
     'three': 3,
@@ -27,14 +27,14 @@ let arr = ['1', '2', '3', '4', '5', '6', '7', '8', '9', 'one', 'two', 'three', '
 
 let matchElements = (el: string) => {
     let numberOfIndex = -1;
-    const numbers_positions: NP[] = arr.reduce((acc: NP[], item) => {
+    const numbersPositions: NP[] = arr.reduce((acc: NP[], item) => {
         while ((numberOfIndex = el.indexOf(item, numberOfIndex + 1)) !== -1) {
             acc.push({ index: numberOfIndex, numInWords: item });
         }
         return acc
     }, [])
 
-    let sortedPositions = numbers_positions.sort((a, b) => a.index - b.index)
+    let sortedPositions = numbersPositions.sort((a, b) => a.index - b.index)
 
     const { numInWords: first } = sortedPositions[0];
     const { numInWords: last } = sortedPositions[sortedPositions.length - 1];
@@ -42,8 +42,8 @@ let matchElements = (el: string) => {
     let first_char = first
     let last_char = last
 
-    if (isNaN(Number(first))) first_char = String(numbers_map[first]);
-    if (isNaN(Number(last))) last_char = String(numbers_map[last]);
+    if (isNaN(Number(first))) first_char = String(numbersMap[first]);
+    if (isNaN(Number(last))) last_char = String(numbersMap[last]);
 
     return first_char + last_char;
 }
