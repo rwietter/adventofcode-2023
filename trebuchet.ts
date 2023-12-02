@@ -2,7 +2,7 @@ import assert from "node:assert"
 import { readFileSync } from "node:fs"
 import path from "node:path"
 
-type NP = {
+type NumbersPositions = {
     index: number,
     numInWords: string
 }
@@ -23,39 +23,37 @@ let numbersMap: NumbersMap = {
     'nine': 9,
 }
 
-let arr = ['1', '2', '3', '4', '5', '6', '7', '8', '9', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine']
+let numbers = ['1', '2', '3', '4', '5', '6', '7', '8', '9']
+let numbersInWords = Object.keys(numbersMap)
 
-let matchElements = (el: string) => {
+let matchElements = (calibrationValue: string, ...keys: string[]) => {
     let numberOfIndex = -1;
-    const numbersPositions: NP[] = arr.reduce((acc: NP[], item) => {
-        while ((numberOfIndex = el.indexOf(item, numberOfIndex + 1)) !== -1) {
+    const numbersPositions: NumbersPositions[] = keys.reduce((acc: NumbersPositions[], item) => {
+        while ((numberOfIndex = calibrationValue.indexOf(item, numberOfIndex + 1)) !== -1) {
             acc.push({ index: numberOfIndex, numInWords: item });
         }
         return acc
     }, [])
 
-    let sortedPositions = numbersPositions.sort((a, b) => a.index - b.index)
+    let sorted = numbersPositions.sort((a, b) => a.index - b.index)
 
-    const { numInWords: first } = sortedPositions[0];
-    const { numInWords: last } = sortedPositions[sortedPositions.length - 1];
+    const [firstChar, lastChar] = [sorted[0].numInWords, sorted[sorted.length - 1].numInWords];
 
-    let first_char = first
-    let last_char = last
+    let first = isNaN(+firstChar) ? String(numbersMap[firstChar]) : firstChar
+    let last = isNaN(+lastChar) ? String(numbersMap[lastChar]) : lastChar
 
-    if (isNaN(Number(first))) first_char = String(numbersMap[first]);
-    if (isNaN(Number(last))) last_char = String(numbersMap[last]);
-
-    return first_char + last_char;
+    return first + last;
 }
 
 const trebuchet = (str: string) => str
     .split(" ")
-    .map(matchElements, [])
+    .map((value) => matchElements(value, ...numbers, ...numbersInWords), [])
     .reduce((acc, item) => acc + Number(item), 0)
 
 
 const day1 = readFileSync(path.resolve(__dirname, 'day1.txt'), 'utf8');
 
+assert(trebuchet("1abc2 pqr3stu8vwx a1b2c3d4e5f treb7uchet") === 142, 'error');
 assert(trebuchet(day1) === 54875, 'error'); // gold star
 assert(trebuchet("tgkfk8ninestnk2eightoneeightwotcs") === 82, 'error');
 assert(trebuchet("1abc2 pqr3stu8vwx a1b2c3d4e5f treb7uchet") === 142, 'error');
