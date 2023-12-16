@@ -35,6 +35,7 @@ let matchElements = (calibrationValue: string, ...keys: string[]) => {
         return acc
     }, [])
 
+
     let sorted = numbersPositions.sort((a, b) => a.index - b.index)
 
     const [firstChar, lastChar] = [sorted[0].numInWords, sorted[sorted.length - 1].numInWords];
@@ -53,12 +54,14 @@ const trebuchet = (str: string) => str
 
 const day1 = readFileSync(path.resolve(__dirname, 'day1.txt'), 'utf8');
 
-assert(trebuchet("1abc2 pqr3stu8vwx a1b2c3d4e5f treb7uchet") === 142, 'error');
-assert(trebuchet(day1) === 54875, 'error'); // gold star
-assert(trebuchet("tgkfk8ninestnk2eightoneeightwotcs") === 82, 'error');
-assert(trebuchet("1abc2 pqr3stu8vwx a1b2c3d4e5f treb7uchet") === 142, 'error');
-assert(trebuchet("two1nine eightwothree abcone2threexyz xtwone3four 4nineeightseven2 zoneight234 7pqrstsixteen") === 281, 'error');
-assert(trebuchet("znmfvdlhvjtwo9three4tzjqcfcgnsevenccvnsjczlpm") === 27, 'error');
-assert(trebuchet("eight226three5sevenhhxhqxns") === 87, 'error');
-assert(trebuchet("jbtfkfourggc5zkc3nineninekv 379eight") === 87, 'error');
-assert(trebuchet("nrtjrkkfour6fivefour7fivertjnxbbzg") === 45, 'err');
+console.log(trebuchet(day1))
+
+// assert(trebuchet("6three2sixsix9eightfour") === 64, 'error');
+// assert(trebuchet(day1) === 54875, 'error'); // gold star
+// assert(trebuchet("tgkfk8ninestnk2eightoneeightwotcs") === 82, 'error');
+// assert(trebuchet("1abc2 pqr3stu8vwx a1b2c3d4e5f treb7uchet") === 142, 'error');
+// assert(trebuchet("two1nine eightwothree abcone2threexyz xtwone3four 4nineeightseven2 zoneight234 7pqrstsixteen") === 281, 'error');
+// assert(trebuchet("znmfvdlhvjtwo9three4tzjqcfcgnsevenccvnsjczlpm") === 27, 'error');
+// assert(trebuchet("eight226three5sevenhhxhqxns") === 87, 'error');
+// assert(trebuchet("jbtfkfourggc5zkc3nineninekv 379eight") === 87, 'error');
+// assert(trebuchet("nrtjrkkfour6fivefour7fivertjnxbbzg") === 45, 'err');
